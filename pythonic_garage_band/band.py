@@ -1,14 +1,86 @@
 from abc import ABC, abstractmethod
 
 
-class Band:
-    bands = []
-    members = []
+class Musician:
+    def __init__(self, name):
+        self.name=name
+    
+    @abstractmethod
+    def __str__(self):
+      pass
 
-    def __init__(self, name, members):
+
+    @abstractmethod
+    def __reper__(self):
+      pass
+   
+    @abstractmethod
+    def get_instrument(self):
+      pass
+
+
+    @abstractmethod
+    def play_solo(self):
+      pass
+
+
+class Guitarist(Musician):
+    def __init__(self,name):
+        super().__init__(name)
+
+    def get_instrument(self):
+        return "guitar"
+    
+    def play_solo(self):
+        return "face melting guitar solo"
+    
+    def __str__(self): 
+        return f'My name is {self.name} and I play guitar'
+    
+    def __repr__(self):
+        return f'Guitarist instance. Name = {self.name}'
+    
+
+class Drummer(Musician):
+    def __init__(self,name):
+        super().__init__(name)
+    
+    def get_instrument(self):
+        return "drums"
+    
+    def play_solo(self):
+        return "rattle boom crash"
+    
+    def __str__(self): 
+        return f'My name is {self.name} and I play drums'
+    
+    def __repr__(self):
+        return f'Drummer instance. Name = {self.name}'
+
+
+class Bassist(Musician):
+    def __init__(self,name):
+        super().__init__(name)
+
+    def get_instrument(self):
+        return "bass"
+    
+    def play_solo(self):
+        return "bom bom buh bom" 
+    
+    def __str__(self): 
+        return f'My name is {self.name} and I play bass'
+    
+    def __repr__(self):
+        return f'Bassist instance. Name = {self.name}'
+    
+class Band(Musician):
+    instances = []
+
+    def __init__(self, name, members) :
         self.name = name
         self.members = members
-        Band.bands.append(self)
+        Band.instances.append(self) 
 
     def play_solos(self):
         solos = []
@@ -16,86 +88,12 @@ class Band:
             solos.append(member.play_solo())
         return solos
 
-    def __str__(self):
-        pass
-
+    def __str__(self): 
+        return f'the band name is {self.name}'
+    
     def __repr__(self):
-        pass
+        return f'the band name is {self.name}'
 
     @classmethod
     def to_list(cls):
-        return cls.bands
-
-
-class Musician:
-
-    def __init__(self, name):
-        self.name = name
-
-    @abstractmethod
-    def __str__(self):
-        pass
-
-    @abstractmethod
-
-    def __repr__(self):
-        pass
-
-    @abstractmethod
-    def get_instrument(self):
-        pass
-
-    @abstractmethod
-    def play_solo(self):
-        pass
-
-
-class Guitarist(Musician):
-    def __str__(self):
-        return f"My name is {self.name} and I am the band's Guitarist"
-    
-    def __repr__(self):
-        return f"Guitarist: {self.name}"
-
-    def get_instrument(self):
-        return "guitar"
-
-    def play_solo(self):
-        return "Purple Rain"
-
-
-class Bassist(Musician):
-    def __str__(self):
-        return f"My name is {self.name}, and I am the band's Bassist."
-    
-    def __repr__(self):
-        return f"Bassist: {self.name}"
-
-    def get_instrument(self):
-        return "Base"
-
-    def play_solo(self):
-        return "Base solo"
-
-
-class Drummer(Musician):
-    def __str__(self):
-        return f"My name is {self.name}, and I am the band's Drummer."
-    
-    def __repr__(self):
-        return f"Drummer: {self.name}"
-
-    def get_instrument(self):
-        return "Drums"
-
-    def play_solo(self):
-        return "Stairway to heaven"
-
-
-if __name__ == "__main__":
-    Prince = Guitarist('Prince')
-    Led_zeppelin = Drummer('Led Zeppelin')
-    Larry_Grahm = Bassist('Larry Graham')
-
-    print(Band.members)
-    print(Band.bands)
+        return cls.instances 
